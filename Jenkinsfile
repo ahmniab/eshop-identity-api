@@ -2,8 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "ahmniab"
-        TAG = "1.0.0"
+        IMAGE_NAME = "ahmniab/identity-api"
+        VERSION = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+
     }
 
     stages {
@@ -30,8 +31,8 @@ pipeline {
         }
         stage('Build and Push Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:$TAG .'
-                sh 'docker push $IMAGE_NAME:$TAG'
+                sh 'docker build -t $IMAGE_NAME:$VERSION .'
+                sh 'docker push $IMAGE_NAME:$VERSION'
             }
         }
     }
