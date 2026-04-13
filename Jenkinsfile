@@ -7,17 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('list dir') {
-            steps {
-                sh """
-                docker run --rm \
-                    -v ${WORKSPACE}:/app:z \
-                    -w /app \
-                    mcr.microsoft.com/dotnet/sdk:10.0 \
-                    ls -R
-                """
-            }
-        }
         stage('Run Tests') {
             steps {
                 sh """
