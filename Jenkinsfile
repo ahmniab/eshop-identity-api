@@ -11,10 +11,10 @@ pipeline {
             steps {
                 sh '''
                     docker run --rm \
-                    -v $(pwd):/app \
+                    -v ${WORKSPACE}:/app \
                     -w /app \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
-                    dotnet test Identity.API.Tests/Identity.API.Tests.csproj
+                    dotnet test eShop.Identity.API.sln
                 '''
             }
 
