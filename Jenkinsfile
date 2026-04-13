@@ -10,7 +10,10 @@ pipeline {
         stage('list dir') {
             steps {
                 sh """
-                    pwd && ls
+                    -v ${WORKSPACE}:/app \
+                    -w /app \
+                    mcr.microsoft.com/dotnet/sdk:10.0 \
+                    ls
                 """
             }
         }
