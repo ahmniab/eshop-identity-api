@@ -9,13 +9,13 @@ pipeline {
     stages {
         stage('Run Tests') {
             steps {
-                sh '''
+                sh """
                     docker run --rm \
                     -v ${WORKSPACE}:/app \
                     -w /app \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
                     dotnet test eShop.Identity.API.sln
-                '''
+                """
             }
 
         }
