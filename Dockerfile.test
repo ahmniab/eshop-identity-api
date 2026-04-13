@@ -1,0 +1,30 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS test
+
+WORKDIR /src
+
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
+ENV DOTNET_NOLOGO=1
+
+COPY ["eShop.Identity.API.sln", "./"]
+
+COPY ["Identity.API/Identity.API.csproj", "Identity.API/"]
+COPY ["Identity.API.Tests/Identity.API.Tests.csproj", "Identity.API.Tests/"]
+
+RUN dotnet restore "Identity.API.Tests/Identity.API.Tests.csproj"
+
+COPY ["Identity.API/", "Identity.API/"]
+COPY ["Identity.API.Tests/", "Identity.API.Tests/"]
+
+RUN dotnet \
+    build "Identity.API.Tests/Identity.API.Tests.csproj" \
+    --configuration Release \
+    --no-restore
+
+FROM test AS run-tests
+
+CMD ["dotnet", "test", "Identity.API.Tests/Identity.API.Tests.csproj", \
+     "--configuration", "Release", \
+     "--no-build", \
+     "--no-restore", \
+     "--logger", "trx;LogFileName=test-results.trx", \
+     "--logger", "console;verbosity=detailed"]
