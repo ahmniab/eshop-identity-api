@@ -11,6 +11,7 @@ pipeline {
             steps {
                 sh """
                 docker run --rm \
+                    -u \$(id -u):\$(id -g) \
                     -v ${WORKSPACE}:/app \
                     -w /app \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
@@ -22,6 +23,7 @@ pipeline {
             steps {
                 sh """
                 docker run --rm \
+                    -u \$(id -u):\$(id -g) \
                     -v ${WORKSPACE}:/app \
                     -w /app \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
