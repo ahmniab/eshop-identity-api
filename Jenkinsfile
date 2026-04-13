@@ -10,6 +10,13 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh """
+                    pwd && ls
+                """
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh """
                     docker run --rm \
                     -v ${WORKSPACE}:/app \
                     -w /app \
