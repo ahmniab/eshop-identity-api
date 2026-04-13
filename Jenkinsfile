@@ -10,8 +10,8 @@ pipeline {
         stage('list dir') {
             steps {
                 sh """
+                chmod -R 777 ${WORKSPACE}
                 docker run --rm \
-                    -u \$(id -u):\$(id -g) \
                     -v ${WORKSPACE}:/app \
                     -w /app \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
@@ -22,6 +22,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh """
+                chmod -R 777 ${WORKSPACE}
                 docker run --rm \
                     -u \$(id -u):\$(id -g) \
                     -v ${WORKSPACE}:/app \
