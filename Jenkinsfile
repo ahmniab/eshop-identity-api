@@ -20,7 +20,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh """
-                docker
+                docker \
                     -v ${WORKSPACE}:/app \
                     -w /app \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
