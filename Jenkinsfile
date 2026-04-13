@@ -25,6 +25,7 @@ pipeline {
                     -u \$(id -u):\$(id -g) \
                     -v ${WORKSPACE}:/app:z \
                     -w /app \
+                    -e DOTNET_CLI_HOME=/app/.dotnet-temp \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
                     dotnet test eShop.Identity.API.sln
                 """
