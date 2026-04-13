@@ -10,9 +10,8 @@ pipeline {
         stage('list dir') {
             steps {
                 sh """
-                chmod -R 777 ${WORKSPACE}
                 docker run --rm \
-                    -v ${WORKSPACE}:/app \
+                    -v ${WORKSPACE}:/app:z \
                     -w /app \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
                     ls -R
@@ -22,10 +21,9 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh """
-                chmod -R 777 ${WORKSPACE}
                 docker run --rm \
                     -u \$(id -u):\$(id -g) \
-                    -v ${WORKSPACE}:/app \
+                    -v ${WORKSPACE}:/app:z \
                     -w /app \
                     mcr.microsoft.com/dotnet/sdk:10.0 \
                     dotnet test eShop.Identity.API.sln
